@@ -1,0 +1,7 @@
+source:
+  type: csv
+  path: "path/to/source.csv"
+
+target:
+  type: snowflake
+  table: "TARGET_TABLE_NAME"
