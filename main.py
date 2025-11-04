@@ -7,8 +7,9 @@ spark = SparkSession.builder \
       .master("local[1]") \
       .appName("SparkByExamples.com") \
       .getOrCreate()
-dataList = [("Java", 20000), ("Python", 100000), ("Scala", 3000)]
-df=spark.createDataFrame(dataList, schema=['Language','fee'])
+
+
+df = spark.read.parquet("/Users/admin/PycharmProjects/taf_august/input_files/userdata1.parquet")
 
 df.show()
 
