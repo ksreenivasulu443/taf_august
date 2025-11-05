@@ -1,4 +1,5 @@
-def read_file(config, spark):
+from src.utility.general_lib import read_schema
+def read_file(config, spark, dir_path):
     """
     :param config: this will contain configs of source or target
     :param spark: spark session
@@ -11,7 +12,11 @@ def read_file(config, spark):
     exclude_cols = config['exclude_cols']
 
     if type == 'csv':
-        df = spark.read.csv(path=path,header=options['header'])
+        if schema == 'Y':
+            schema_json = read_schema(dir_path)
+            df = spark.read.schema(schema_json).csv(path=path,header=options['header'],sep=options['delimiter'])
+        else:
+            df = spark.read.csv(path=path,header=options['header'], sep=options['delimiter'], inferSchema=options['inferSchema'])
     elif type == 'json':
         df = spark.read.json(path=path,multiline=options['multiline'])
     elif type == 'parquet':

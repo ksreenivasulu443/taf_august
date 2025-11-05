@@ -1,10 +1,11 @@
 source:
   path: "/Users/admin/PycharmProjects/taf_august/input_files/customer_data/customer_data_01.csv"
   type: "csv"
-  schema: "N"
+  schema: "Y"
   options:
     header: True
     delimiter: ","
+    inferSchema: True
   exclude_cols: ["batch_id","create_date"]
 
 target:

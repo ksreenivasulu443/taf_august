@@ -5,6 +5,7 @@ import yaml
 from src.utility.read_file_lib import read_file
 from src.utility.read_db_lib import read_db
 
+
 @pytest.fixture(scope='session')
 def spark_session():
     print("this is spark session fixture")
@@ -21,9 +22,10 @@ def read_config(request):
     return config_data
 
 @pytest.fixture(scope='module')
-def read_data(spark_session,read_config):
+def read_data(spark_session,read_config, request):
     spark = spark_session
     config_data = read_config
+    dir_path = request.node.fspath.dirname
 
     print("spark is", spark)
     print("config is", config_data, type(config_data))
@@ -42,7 +44,7 @@ def read_data(spark_session,read_config):
     if source_config['type'] == 'database':
         pass
     else:
-        source_df = read_file(config = source_config, spark = spark)
+        source_df = read_file(config = source_config, spark = spark, dir_path=dir_path)
 
     if target_config['type'] == 'database':
         pass
