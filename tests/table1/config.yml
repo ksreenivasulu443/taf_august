@@ -5,16 +5,17 @@ source:
   options:
     header: True
     delimiter: ","
-    inferSchema: True
-  exclude_cols: ["batch_id","create_date"]
+    inferSchema: False
+  exclude_cols: ["batch_id"]
 
 target:
-  path: "/Users/admin/PycharmProjects/taf_august/input_files/userdata1.parquet"
-  type: "parquet"
+  path: "/Users/admin/PycharmProjects/taf_august/input_files/customer_data/customer_data_01.csv"
+  type: "csv"
   schema: "N"
   options:
-    header: NA
-    delimiter: NA
+    header: True
+    delimiter: ","
+    inferSchema: True
   exclude_cols: ["batch_id"]
 
 validations:
