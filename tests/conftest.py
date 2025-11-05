@@ -49,7 +49,7 @@ def read_data(spark_session,read_config, request):
     if target_config['type'] == 'database':
         pass
     else:
-        target_df = read_file(config = target_config, spark = spark)
+        target_df = read_file(config = target_config, spark = spark,dir_path=dir_path)
 
     return source_df, target_df
 
