@@ -19,7 +19,7 @@ def read_file(config, spark, dir_path):
         else:
             df = spark.read.csv(path=path,header=options['header'], sep=options['delimiter'], inferSchema=options['inferSchema'])
     elif type == 'json':
-        df = spark.read.json(path=path,multiline=options['multiline'])
+        df = spark.read.json(path=path,multiLine=options['multiline'])
         if options['flatten'] == 'Y':
             df = flatten(df)
     elif type == 'parquet':

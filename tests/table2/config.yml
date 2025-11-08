@@ -7,7 +7,7 @@ source:
     delimiter: NA
     inferSchema: NA
     multiline : True
-    flatten : "Y"
+    flatten : "N"
   exclude_cols: ["batch_id"]
 
 target:
