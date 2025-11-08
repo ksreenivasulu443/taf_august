@@ -1,4 +1,5 @@
-from src.utility.general_lib import read_schema
+from src.utility.general_lib import read_schema, flatten
+
 def read_file(config, spark, dir_path):
     """
     :param config: this will contain configs of source or target
@@ -19,8 +20,12 @@ def read_file(config, spark, dir_path):
             df = spark.read.csv(path=path,header=options['header'], sep=options['delimiter'], inferSchema=options['inferSchema'])
     elif type == 'json':
         df = spark.read.json(path=path,multiline=options['multiline'])
+        if options['flatten'] == 'Y':
+            df = flatten(df)
     elif type == 'parquet':
         df = spark.read.parquet(path)
     elif type == 'avro':
         df = spark.read.format('avro').load(path=path)
+    elif type == 'txt':
+        df = spark.read.format('csv').load(path=path,header=options['header'],sep=options['delimiter'])
     return df

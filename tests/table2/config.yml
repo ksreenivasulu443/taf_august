@@ -1,7 +1,37 @@
 source:
-  type: csv
-  path: "path/to/source.csv"
+  path: "/Users/admin/PycharmProjects/taf_august/input_files/Complex.json"
+  type: "json"
+  schema: "N"
+  options:
+    header: NA
+    delimiter: NA
+    inferSchema: NA
+    multiline : True
+    flatten : "Y"
+  exclude_cols: ["batch_id"]
 
 target:
-  type: snowflake
-  table: "TARGET_TABLE_NAME"
+  path: "/Users/admin/PycharmProjects/taf_august/input_files/singleline.json"
+  type: "json"
+  schema: "N"
+  options:
+    header: NA
+    delimiter: NA
+    inferSchema: NA
+    multiline : False
+    flatten : "Y"
+  exclude_cols: ["batch_id"]
+
+validations:
+  count_check:
+    key_columns: ["customer_id"]
+  duplicate_check:
+    key_columns: ["customer_id"]
+  null_check:
+    null_columns: ["customer_id","name", "email", "phone"]
+  uniqueness_check:
+    unique_columns: ["customer_id"]
+  data_compare_check:
+    key_column: ["customer_id"]
+    validate_columns: ["na"]
+    num_records: 100

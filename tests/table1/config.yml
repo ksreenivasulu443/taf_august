@@ -6,6 +6,8 @@ source:
     header: True
     delimiter: ","
     inferSchema: False
+    multiline : False
+    flatten : "Y"
   exclude_cols: ["batch_id"]
 
 target:
