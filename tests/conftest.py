@@ -9,8 +9,17 @@ from src.utility.read_db_lib import read_db
 @pytest.fixture(scope='session')
 def spark_session():
     print("this is spark session fixture")
-    spark = SparkSession.builder.master('local[1]').appName("ETL Automation FW").getOrCreate()
+    taf_august= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    jar_path = os.path.join(taf_august,'jars','mssql-jdbc-12.2.0.jre8.jar')
+
+    print("jar_path", jar_path)
+    spark = (SparkSession.builder.master('local[1]')
+             .config("spark.jars", jar_path)
+             .config("spark.driver.extraClassPath", jar_path)
+             .config("spark.executor.extraClassPath", jar_path)
+             .appName("ETL Automation FW").getOrCreate())
     return spark
+
 
 @pytest.fixture(scope='module')
 def read_config(request):
@@ -37,17 +46,14 @@ def read_data(spark_session,read_config, request):
     print("==" * 50)
     print("targte config", target_config)
 
-    print("source_config['type']", source_config['type'])
-    print("source_config['path']", source_config['path'])
-    print("source_config['options']", source_config['options'])
 
     if source_config['type'] == 'database':
-        source_df = read_db(config=source_config, spark = spark)
+        source_df = read_db(config=source_config, spark = spark, dir_path=dir_path)
     else:
         source_df = read_file(config = source_config, spark = spark, dir_path=dir_path)
 
     if target_config['type'] == 'database':
-        pass
+        target_df = read_db(config=target_config, spark = spark, dir_path=dir_path)
     else:
         target_df = read_file(config = target_config, spark = spark,dir_path=dir_path)
 

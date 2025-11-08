@@ -1,0 +1,23 @@
+sqlserver_dev:
+    url: "jdbc:sqlserver://decautoserver.database.windows.net:1433;database=decauto"
+    user: "decadmin"
+    password: "Dharmavaram1@"
+    driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+
+sqlserver_qa:
+    url: "jdbc:sqlserver://august2025.database.windows.net:1433;database=augustautodb"
+    user: "autoadmin"
+    password: "Dharmavaram1@"
+    driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+
+sqlserver_uat:
+    url: "jdbc:sqlserver://august2025.database.windows.net:1433;database=augustautodb"
+    user: "autoadmin"
+    password: "Dharmavaram1@"
+    driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+
+sqlserver_prod:
+    url: "jdbc:sqlserver://august2025.database.windows.net:1433;database=augustautodb"
+    user: "autoadmin"
+    password: "Dharmavaram1@"
+    driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
