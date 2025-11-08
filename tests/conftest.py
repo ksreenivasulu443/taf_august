@@ -10,8 +10,9 @@ from src.utility.read_db_lib import read_db
 def spark_session():
     print("this is spark session fixture")
     taf_august= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    jar_path = os.path.join(taf_august,'jars','mssql-jdbc-12.2.0.jre8.jar')
-
+    sql_server = os.path.join(taf_august,'jars','mssql-jdbc-12.2.0.jre8.jar')
+    postgres_jar = os.path.join(taf_august, 'jars', 'postgresql-42.6.2.jar')
+    jar_path =  sql_server + ',' + postgres_jar
     print("jar_path", jar_path)
     spark = (SparkSession.builder.master('local[1]')
              .config("spark.jars", jar_path)
