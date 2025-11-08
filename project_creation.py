@@ -24,13 +24,13 @@ structure = {
     "tests": {
         "table1": [
             "config.yml",
-            "queries.sql",
+            "transformation.sql",
             "test_table1.py"
         ],
         "table2": [
             "config.yml",
-            "queries.sql",
-            "test_table3.py"
+            "transformation.sql",
+            "test_table4.py"
         ],
         ".": [
             "conftest.py"

@@ -10,6 +10,12 @@ def read_schema(dir_path):
         schema = StructType.fromJson(json.load(f))
     return schema
 
+def read_sql(dir_path):
+    query_path = os.path.join(dir_path, 'transformation.sql')
+    with open(query_path, 'r') as f:
+        query= f.read()
+    return query
+
 
 
 def flatten(df):

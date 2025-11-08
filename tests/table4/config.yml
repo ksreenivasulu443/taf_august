@@ -1,20 +1,15 @@
 source:
   type: "database"
   transformation : ["Y","sql"]
-  table: "[dbo].[customer]"
+  table: "NA"
   cred_lookup: "sqlserver_qa"
   exclude_cols: ["batch_id"]
 
 target:
-  path: "/Users/admin/PycharmProjects/taf_august/input_files/singleline.json"
-  type: "json"
-  schema: "N"
-  options:
-    header: 'NA'
-    delimiter: 'NA'
-    inferSchema: 'NA'
-    multiline : False
-    flatten : "Y"
+  type: "database"
+  transformation : ["N","sql"]
+  table: "[dbo].[customer]"
+  cred_lookup: "sqlserver_qa"
   exclude_cols: ["batch_id"]
 
 validations:

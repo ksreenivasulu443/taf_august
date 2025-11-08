@@ -21,3 +21,10 @@ sqlserver_prod:
     user: "autoadmin"
     password: "Dharmavaram1@"
     driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+
+postgres:
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    user: "postgres"
+    password: "Dharmavaram1@"
+    driver: "org.postgresql.Driver"
+    port: 5432
