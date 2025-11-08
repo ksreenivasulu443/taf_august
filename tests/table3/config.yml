@@ -5,6 +5,7 @@ source:
   cred_lookup: "sqlserver"
   exclude_cols: ["batch_id"]
 
+
 target:
   path: "/Users/admin/PycharmProjects/taf_august/input_files/singleline.json"
   type: "json"
