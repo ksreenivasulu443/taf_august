@@ -42,7 +42,7 @@ def read_data(spark_session,read_config, request):
     print("source_config['options']", source_config['options'])
 
     if source_config['type'] == 'database':
-        pass
+        source_df = read_db(config=source_config, spark = spark)
     else:
         source_df = read_file(config = source_config, spark = spark, dir_path=dir_path)
 
