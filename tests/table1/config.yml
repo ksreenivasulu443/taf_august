@@ -11,7 +11,7 @@ source:
   exclude_cols: ["batch_id"]
 
 target:
-  path: "/Users/admin/PycharmProjects/taf_august/input_files/customer_data/customer_data_01.csv"
+  path: "/Users/admin/PycharmProjects/taf_august/input_files/customer_data/customer_data_02.csv"
   type: "csv"
   schema: "N"
   options:

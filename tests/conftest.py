@@ -36,18 +36,9 @@ def read_data(spark_session,read_config, request):
     spark = spark_session
     config_data = read_config
     dir_path = request.node.fspath.dirname
-
-    print("spark is", spark)
-    print("config is", config_data, type(config_data))
-    print("=="*50)
     source_config = config_data['source']
-    print("==" * 50)
-    print("source config", source_config)
     target_config = config_data['target']
-    print("==" * 50)
-    print("targte config", target_config)
-
-
+    validation_config = config_data['validations']
     if source_config['type'] == 'database':
         source_df = read_db(config=source_config, spark = spark, dir_path=dir_path)
     else:
@@ -58,7 +49,7 @@ def read_data(spark_session,read_config, request):
     else:
         target_df = read_file(config = target_config, spark = spark,dir_path=dir_path)
 
-    return source_df, target_df
+    return source_df.drop(*source_config['exclude_cols']), target_df.drop(*target_config['exclude_cols']), validation_config
 
 
 
