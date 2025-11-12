@@ -4,23 +4,23 @@
       "metadata": {},
       "name": "customer_id",
       "nullable": true,
-      "type": "long"
+      "type": "integer"
     },
     {
       "metadata": {},
-      "name": "customer_name",
+      "name": "name",
       "nullable": true,
       "type": "string"
     },
     {
       "metadata": {},
-      "name": "customer_email",
+      "name": "email",
       "nullable": true,
       "type": "string"
     },
     {
       "metadata": {},
-      "name": "customer_phone",
+      "name": "phone",
       "nullable": true,
       "type": "string"
     },
