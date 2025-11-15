@@ -3,22 +3,25 @@ from src.utility.report_lib import write_output
 from pyspark.sql.functions import upper
 from pyspark.sql import SparkSession
 
-def null_value_check(df, null_cols):
+def null_value_check(df, null_cols,num_records = 5):
     """Validate that specified columns have no null or empty values."""
 
     failures = []
 
-    for column in null_cols:
+    for column in null_cols: #["customer_id","name", "email", "phone"]
         print("column", column)
-        failing_rows = df.filter(
-            (col(column).isNull()) | (trim(col(column)) == "" ))
+        #failing_rows = df.filter((col(column).isNull()) | (trim(col(column)) == "" ))
+        failing_rows = df.filter(f"""{column} is null or trim({column}) ='' 
+                                   or upper({column}) in('NA','NULL','NONE') """)
+
+
         null_count = failing_rows.count()
         print("null_count", null_count)
         if null_count > 0:
-            failed_records = failing_rows.limit(5).collect()  # Get the first 5 failing rows
-            print("failed_records", failed_records)
+            failed_records = failing_rows.limit(num_records).collect()  # Get the first 5 failing rows
+            #print("failed_records", failed_records)
             failed_preview = [row.asDict() for row in failed_records]  # Convert rows to a dictionary for display
-            print("failed preview", failed_preview)
+            #print("failed preview", failed_preview)
             failures.append({
                 "column": column,
                 "null_count": null_count,

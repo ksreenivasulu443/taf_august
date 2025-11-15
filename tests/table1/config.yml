@@ -27,6 +27,7 @@ validations:
     key_columns: ["customer_id","name","email","phone"]
   null_check:
     null_columns: ["customer_id","name", "email", "phone"]
+    num_records: 100
   uniqueness_check:
     unique_columns: ["phone","name"]
   data_compare_check:
