@@ -2,6 +2,7 @@ from src.data_validations.count_check import count_check
 from src.data_validations.duplicate_check import duplicate_check
 from src.data_validations.uniqueness_check import uniqueness_check
 from src.data_validations.null_value_check import null_value_check
+from src.data_validations.data_compare_check import data_compare
 
 
 # def test_count(read_data):
@@ -23,10 +24,18 @@ from src.data_validations.null_value_check import null_value_check
 #     status = uniqueness_check( df=target_df,unique_cols=unique_cols)
 #     assert status == 'PASS'
 
-def test_null_check(read_data):
+# def test_null_check(read_data):
+#     source_df, target_df, validation_config = read_data
+#     target_df.show()
+#     null_columns = validation_config['null_check']['null_columns']
+#     num_records = validation_config['null_check']['num_records']
+#     status = null_value_check(df=target_df, null_cols=null_columns,num_records=num_records)
+#     assert status == 'PASS'
+
+def test_data_compare_check(read_data):
     source_df, target_df, validation_config = read_data
-    target_df.show()
-    null_columns = validation_config['null_check']['null_columns']
-    num_records = validation_config['null_check']['num_records']
-    status = null_value_check(df=target_df, null_cols=null_columns,num_records=num_records)
+    key_columns = validation_config['data_compare_check']['key_column']
+    num_records = validation_config['data_compare_check']['num_records']
+    status = data_compare(source=source_df, target=target_df, key_column=key_columns , num_records=num_records)
     assert status == 'PASS'
+
