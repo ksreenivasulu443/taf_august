@@ -1,0 +1,35 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "TransactionID",
+      "type": "integer",
+      "nullable": false,
+      "metadata": {}
+    },
+    {
+      "name": "TransactionDate",
+      "type": "date",
+      "nullable": false,
+      "metadata": {}
+    },
+    {
+      "name": "Type",
+      "type": "string",
+      "nullable": false,
+      "metadata": {}
+    },
+    {
+      "name": "Amount",
+      "type": "decimal(10,2)",
+      "nullable": false,
+      "metadata": {}
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    }
+  ]
+}

@@ -1,8 +1,13 @@
 source:
-  type: "database"
-  transformation : ["Y","sql"]
-  table: "NA"
-  cred_lookup: "sqlserver_qa"
+  path: "/Users/admin/PycharmProjects/taf_august/input_files/customer_data/customer_data_03.csv"
+  type: "csv"
+  schema: "Y"
+  options:
+    header: True
+    delimiter: ","
+    inferSchema: False
+    multiline : False
+    flatten : "Y"
   exclude_cols: ["batch_id"]
 
 target:

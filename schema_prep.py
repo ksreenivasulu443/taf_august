@@ -14,17 +14,33 @@ spark = SparkSession.builder \
 df = spark.read.csv("/Users/admin/PycharmProjects/taf_august/input_files/customer_data/customer_data_01.csv", header=True, inferSchema=True)
 
 df.show()
-print(df.schema.json())
+source_schema = df.schema
 
-with open("/Users/admin/PycharmProjects/taf_august/tests/table1/schema2.json", 'r') as f:
-    schema = StructType.fromJson(json.load(f))
+list1 = []
+for field in source_schema:
+    # print(field)
+    #
+    # print("field name", field.name)
+    # print("field datatype", field.dataType.simpleString())
 
-print("schema is", schema)
+    list1.append((field.name.lower(), field.dataType.simpleString()))
+print(list1)
+source_schema_df = spark.createDataFrame(list1,["col_name", "source_data_type"])
+
+source_schema_df.show()
 
 
 
-df_schema = spark.read.schema(schema).csv("/Users/admin/PycharmProjects/taf_august/input_files/customer_data/customer_data_01.csv", header=True)
-
-df_schema.show()
-
-df_schema.printSchema()
+#
+# with open("/Users/admin/PycharmProjects/taf_august/tests/table1/schema2.json", 'r') as f:
+#     schema = StructType.fromJson(json.load(f))
+#
+# print("schema is", schema)
+#
+#
+#
+# df_schema = spark.read.schema(schema).csv("/Users/admin/PycharmProjects/taf_august/input_files/customer_data/customer_data_01.csv", header=True)
+#
+# df_schema.show()
+#
+# df_schema.printSchema()
