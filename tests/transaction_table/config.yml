@@ -24,6 +24,7 @@ validations:
     key_columns: ["TransactionID"]
   null_check:
     null_columns: ["TransactionDate","type"]
+    num_records : 10
   uniqueness_check:
     unique_columns: ["TransactionID"]
   data_compare_check:

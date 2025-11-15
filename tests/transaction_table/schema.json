@@ -9,7 +9,7 @@
     },
     {
       "name": "TransactionDate",
-      "type": "date",
+      "type": "string",
       "nullable": false,
       "metadata": {}
     },
