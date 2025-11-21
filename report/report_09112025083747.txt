@@ -1,4 +1,0 @@
-count check: FAIL
-Details: Count is not matching between source and target. "
-              Source count is 4 and target count is 3 and difference is 1
-

@@ -1,5 +1,0 @@
-count check: PASS Details: Count is matching between source and target. Source count is 4 and target count is 4
- Records Only in Source: FAIL Details: Count: 2, Sample Failed Records: [{'customer_id': 101}, {'customer_id': 102}]
- Records Only in Target: FAIL Details: Count: 2, Sample Failed Records: [{'customer_id': 105}, {'customer_id': 105}]
- Duplicate Check: FAIL Details: Duplicate Count: 1, Sample Failed Records: [{'customer_id': 105, 'count': 2}]
- 

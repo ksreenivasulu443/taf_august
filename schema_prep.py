@@ -1,46 +1,27 @@
+import pandas as pd
 
-# Import SparkSession
-from pyspark.sql import SparkSession
-import json
-from pyspark.sql.types import StructType
+data = {
+    "name": ["John", "Sara", "Mike"],
+    "age": [25, 30, 29],
+    "email": ["john@gmail.com", "sara@", "mike@gmail.com"]  # One bad email
+}
 
-# Create SparkSession
-spark = SparkSession.builder \
-      .master("local[1]") \
-      .appName("SparkByExamples.com") \
-      .getOrCreate()
+df = pd.DataFrame(data)
+print(df)
 
+from great_expectations.dataset import PandasDataset
 
-df = spark.read.csv("/Users/admin/PycharmProjects/taf_august/input_files/customer_data/customer_data_01.csv", header=True, inferSchema=True)
+ge_df = PandasDataset(df)
 
-df.show()
-source_schema = df.schema
+# Expect column to exist
+ge_df.expect_column_to_exist("email")
 
-list1 = []
-for field in source_schema:
-    # print(field)
-    #
-    # print("field name", field.name)
-    # print("field datatype", field.dataType.simpleString())
+# Expect age to be greater than 18
+ge_df.expect_column_values_to_be_between("age", min_value=18, max_value=60)
 
-    list1.append((field.name.lower(), field.dataType.simpleString()))
-print(list1)
-source_schema_df = spark.createDataFrame(list1,["col_name", "source_data_type"])
+# Expect email format to be valid
+ge_df.expect_column_values_to_match_regex("email", r"^[\w\.-]+@[\w\.-]+\.\w+$")
 
-source_schema_df.show()
+# Show results
+print(ge_df.validate())
 
-
-
-#
-# with open("/Users/admin/PycharmProjects/taf_august/tests/table1/schema2.json", 'r') as f:
-#     schema = StructType.fromJson(json.load(f))
-#
-# print("schema is", schema)
-#
-#
-#
-# df_schema = spark.read.schema(schema).csv("/Users/admin/PycharmProjects/taf_august/input_files/customer_data/customer_data_01.csv", header=True)
-#
-# df_schema.show()
-#
-# df_schema.printSchema()

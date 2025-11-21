@@ -4,6 +4,7 @@ import os
 import yaml
 from src.utility.read_file_lib import read_file
 from src.utility.read_db_lib import read_db
+import logging
 
 
 @pytest.fixture(scope='session')
@@ -19,6 +20,8 @@ def spark_session():
              .config("spark.driver.extraClassPath", jar_path)
              .config("spark.executor.extraClassPath", jar_path)
              .appName("ETL Automation FW").getOrCreate())
+
+    # spark.sparkContext.setLogLevel("INFO")
     return spark
 
 

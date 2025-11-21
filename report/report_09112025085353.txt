@@ -1,2 +1,0 @@
-Records Only in Source: FAIL Details: Count: 2, Sample Failed Records: [{'customer_id': '104'}, {'customer_id': '103'}]
- 

@@ -34,3 +34,6 @@ validations:
     key_column: ["customer_id"]
     validate_columns: ["na"]
     num_records: 100
+  dq_check:
+    name_check: "customer_name"
+    check_range: [10,99]

@@ -13,6 +13,7 @@ def read_file(config, spark, dir_path):
     exclude_cols = config['exclude_cols']
 
     if type == 'csv':
+
         if schema == 'Y':
             schema_json = read_schema(dir_path)
             df = spark.read.schema(schema_json).csv(path=path,header=options['header'],sep=options['delimiter'])

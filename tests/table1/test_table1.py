@@ -5,26 +5,33 @@ from src.data_validations.null_value_check import null_value_check
 from src.data_validations.data_compare_check import data_compare
 from src.data_validations.schema_check import schema_check
 
+from src.data_validations.generic_dq_checks import name_check
+import logging
+import pytest
 
-# def test_count(read_data):
-#     source_df, target_df, validation_config = read_data
-#     key_columns = validation_config['count_check']['key_columns']
-#     status = count_check(source_df=source_df, target_df=target_df, key_columns=key_columns)
-#     assert status.upper() == 'PASS'
+@pytest.mark.regression
+def test_count(read_data):
+    source_df, target_df, validation_config = read_data
+    key_columns = validation_config['count_check']['key_columns']
+    status = count_check(source_df=source_df, target_df=target_df, key_columns=key_columns)
+    # clear
+
+    assert status.upper() == 'PASS'
 #
-# def test_duplicate(read_data):
-#     source_df, target_df, validation_config = read_data
-#     target_df.show()
-#     key_columns = validation_config['duplicate_check']['key_columns']
-#     status = duplicate_check(df=target_df, key_col=key_columns)
-#     assert status.upper() == 'PASS'
+def test_duplicate(read_data):
+    source_df, target_df, validation_config = read_data
+    # logging.info("Printing DataFrame data:")
+    # logging.info("\n" + target_df.limit(10).toPandas())
+    key_columns = validation_config['duplicate_check']['key_columns']
+    status = duplicate_check(df=target_df, key_col=key_columns)
+    assert status.upper() == 'PASS'
 #
 # def test_uniqueness_check(read_data):
 #     source_df, target_df, validation_config = read_data
 #     unique_cols = validation_config['uniqueness_check']['unique_columns']
 #     status = uniqueness_check( df=target_df,unique_cols=unique_cols)
 #     assert status == 'PASS'
-
+#
 # def test_null_check(read_data):
 #     source_df, target_df, validation_config = read_data
 #     target_df.show()
@@ -32,18 +39,33 @@ from src.data_validations.schema_check import schema_check
 #     num_records = validation_config['null_check']['num_records']
 #     status = null_value_check(df=target_df, null_cols=null_columns,num_records=num_records)
 #     assert status == 'PASS'
+#
+# def test_data_compare_check(read_data):
+#     source_df, target_df, validation_config = read_data
+#     key_columns = validation_config['data_compare_check']['key_column']
+#     num_records = validation_config['data_compare_check']['num_records']
+#     status = data_compare(source=source_df, target=target_df, key_column=key_columns , num_records=num_records)
+#     assert status == 'PASS'
+#
+#
+# def test_schema(read_data, spark_session):
+#     source_df, target_df, validation_config = read_data
+#     spark  = spark_session
+#     status = schema_check(source=source_df, target=target_df,spark=spark)
+#     assert status == 'PASS'
 
-def test_data_compare_check(read_data):
+def test_name_check(read_data):
     source_df, target_df, validation_config = read_data
-    key_columns = validation_config['data_compare_check']['key_column']
-    num_records = validation_config['data_compare_check']['num_records']
-    status = data_compare(source=source_df, target=target_df, key_column=key_columns , num_records=num_records)
+
+    col_name = validation_config['dq_check']['name_check']
+    status = name_check(target=target_df,column=col_name)
     assert status == 'PASS'
 
 
-def test_schema(read_data, spark_session):
-    source_df, target_df, validation_config = read_data
-    spark  = spark_session
-    status = schema_check(source=source_df, target=target_df,spark=spark)
-    assert status == 'PASS'
+# def test_name_check_GE(read_data):
+#     source_df, target_df, validation_config = read_data
+#     dataset = great_expectations.datasource(target_df)
+#     col_name = validation_config['dq_check']['name_check']
+#     dataset.expect_column_values_to_match_regex(col_name,r"^[A-Za-z]+$")
+
 
