@@ -1,5 +1,5 @@
 source:
-  path: "/Users/admin/PycharmProjects/taf_august/input_files/singleline.json"
+  path: "s3a://nyc-august-batch-raw/yellow-taxi/full/"
   type: "parquet"
   schema: "N"
   options:
@@ -7,7 +7,7 @@ source:
     delimiter: 'NA'
     inferSchema: 'NA'
     multiline : 'NA'
-    flatten : "Y"
+    flatten : "NA"
   exclude_cols: []
 
 target:
@@ -19,13 +19,13 @@ target:
 
 validations:
   count_check:
-    key_columns: ["customer_id"]
+    key_columns: ["vendorid","tpep_pickup_datetime","tpep_dropoff_datetime"]
   duplicate_check:
-    key_columns: ["customer_id"]
+    key_columns: ["vendorid","tpep_pickup_datetime","tpep_dropoff_datetime"]
   null_check:
-    null_columns: ["customer_id","name", "email", "phone"]
+    null_columns: ["fare_amount"]
   uniqueness_check:
-    unique_columns: ["customer_id"]
+    unique_columns: ["tpep_pickup_datetime","tpep_dropoff_datetime"]
   data_compare_check:
     key_column: ["customer_id"]
     validate_columns: ["na"]

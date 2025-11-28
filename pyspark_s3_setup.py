@@ -48,32 +48,21 @@ spark = (
         .config(
             "spark.jars",
             "/Users/admin/PycharmProjects/taf_august/jars/aws-java-sdk-bundle-1.12.262.jar,"
-            "/Users/admin/PycharmProjects/taf_august/jars/hadoop-aws-3.3.4.jar"
+            "/Users/admin/PycharmProjects/taf_august/jars/hadoop-aws-3.3.4.jar,"
+            "/Users/admin/PycharmProjects/taf_august/jars/redshift-jdbc42-2.1.0.9.jar"
         )
         .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
-        .config("spark.hadoop.fs.s3a.endpoint", "s3.ap-southeast-2.amazonaws.com")
+        .config("spark.hadoop.fs.s3a.endpoint", "s3.us-east-1.amazonaws.com")
         .config("spark.hadoop.fs.s3a.access.key", "AKIA43SC3GDGYHFQUAUQ")
         .config("spark.hadoop.fs.s3a.secret.key", "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")
         .getOrCreate()
 )
 
-df = spark.read.option("header", "true").csv("s3a://august-batch-etl/Contact_info.csv")
-
+df = spark.read.parquet("s3a://nyc-august-batch-raw/yellow-taxi/full/").sample(0.1)
 df.show()
 # df.printSchema()
 
 
-from pyspark.sql import SparkSession
-
-spark = (
-    SparkSession.builder
-        .appName("Connect_Redshift_Serverless")
-        .config(
-            "spark.jars",
-            "/Users/admin/PycharmProjects/taf_august/jars/redshift-jdbc42-2.1.0.9.jar"
-        )
-        .getOrCreate()
-)
 #jdbc_url = "jdbc:redshift://august-etl-group.883829715149.us-east-1.redshift-serverless.amazonaws.com:5439/dev"
 jdbc_url = "jdbc:redshift://default-workgroup.883829715149.us-east-1.redshift-serverless.amazonaws.com:5439/dev"
 df = spark.read.format("jdbc") \
@@ -89,4 +78,4 @@ df.show()
 #
 
 
-glue(Ec2 - computer)
+# glue(Ec2 - computer)

@@ -28,3 +28,14 @@ postgres:
     password: "Dharmavaram1@"
     driver: "org.postgresql.Driver"
     port: 5432
+
+red_shift_qa:
+    url: "jdbc:redshift://default-workgroup.883829715149.us-east-1.redshift-serverless.amazonaws.com:5439/dev"
+    user: "admin"
+    password: "Dharmavaram1"
+    driver: "com.amazon.redshift.jdbc42.Driver"
+
+s3_qa:
+    endpoint: "s3.us-east-1.amazonaws.com"
+    access_key:  "AKIA43SC3GDGYHFQUAUQ"
+    secret_key:  "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"

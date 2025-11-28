@@ -2,7 +2,7 @@ import yaml
 import os
 from src.utility.general_lib import read_sql
 def read_db(config, spark,dir_path):
-    tests_path = os.path.dirname(dir_path)
+    tests_path = os.path.dirname(os.path.dirname(dir_path))
     cred_file_path = os.path.join(tests_path, "cred_files", "cred_config.yml")
     print(cred_file_path)
     with open(cred_file_path, "r") as file:

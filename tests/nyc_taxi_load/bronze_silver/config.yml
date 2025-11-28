@@ -1,20 +1,15 @@
 source:
-  path: "/Users/admin/PycharmProjects/taf_august/input_files/singleline.json"
-  type: "parquet"
-  schema: "N"
-  options:
-    header: 'NA'
-    delimiter: 'NA'
-    inferSchema: 'NA'
-    multiline : 'NA'
-    flatten : "Y"
-  exclude_cols: []
+  type: "database"
+  transformation : ["Y","sql"]
+  table: "employees"
+  cred_lookup: "postgres"
+  exclude_cols: ["batch_id"]
 
 target:
   type: "database"
-  transformation : ["n","sql"]
-  table: "bronze.yellow_tripdata_bronze"
-  cred_lookup: "red_shift_qa"
+  transformation : ["N","sql"]
+  table: "employees"
+  cred_lookup: "postgres"
   exclude_cols: ["batch_id"]
 
 validations:

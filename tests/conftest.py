@@ -4,6 +4,7 @@ import os
 import yaml
 from src.utility.read_file_lib import read_file
 from src.utility.read_db_lib import read_db
+
 import logging
 
 
@@ -11,14 +12,28 @@ import logging
 def spark_session():
     print("this is spark session fixture")
     taf_august= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    sql_server = os.path.join(taf_august,'jars','mssql-jdbc-12.2.0.jre8.jar')
+    sql_server_jar = os.path.join(taf_august,'jars','mssql-jdbc-12.2.0.jre8.jar')
     postgres_jar = os.path.join(taf_august, 'jars', 'postgresql-42.6.2.jar')
-    jar_path =  sql_server + ',' + postgres_jar
+    aws_bundle_jar = os.path.join(taf_august, 'jars', 'aws-java-sdk-bundle-1.12.262.jar')
+    hadoop_aws_jar = os.path.join(taf_august, 'jars', 'hadoop-aws-3.3.4.jar')
+    red_shift_jar = os.path.join(taf_august, 'jars', 'redshift-jdbc42-2.1.0.9.jar')
+    jar_path =  sql_server_jar + ',' + postgres_jar + ',' + aws_bundle_jar + ',' + hadoop_aws_jar + ',' + red_shift_jar
+
+
+    cred_file_path = "/Users/admin/PycharmProjects/taf_august/tests/cred_files/cred_config.yml"
+    print(cred_file_path)
+    with open(cred_file_path, "r") as file:
+        creds = yaml.safe_load(file)['s3_qa']
+
     print("jar_path", jar_path)
     spark = (SparkSession.builder.master('local[1]')
              .config("spark.jars", jar_path)
              .config("spark.driver.extraClassPath", jar_path)
              .config("spark.executor.extraClassPath", jar_path)
+             .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+             .config("spark.hadoop.fs.s3a.endpoint", "s3.us-east-1.amazonaws.com")
+             .config("spark.hadoop.fs.s3a.access.key", "AKIA43SC3GDGYHFQUAUQ")
+             .config("spark.hadoop.fs.s3a.secret.key", "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")
              .appName("ETL Automation FW").getOrCreate())
 
     # spark.sparkContext.setLogLevel("INFO")
