@@ -1,3 +1,1 @@
-SELECT  customerId, name as firstname , upper(lastname) as lastname,
-concat(firstname, lastname) as fullname, 
-email, city FROM [dbo].[Customer]
+select * from silver.yellow_tripdata_silver_expected

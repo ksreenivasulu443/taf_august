@@ -4,7 +4,7 @@ import os
 import yaml
 from src.utility.read_file_lib import read_file
 from src.utility.read_db_lib import read_db
-
+import subprocess
 import logging
 
 
@@ -32,8 +32,8 @@ def spark_session():
              .config("spark.executor.extraClassPath", jar_path)
              .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
              .config("spark.hadoop.fs.s3a.endpoint", "s3.us-east-1.amazonaws.com")
-             .config("spark.hadoop.fs.s3a.access.key", "AKIA43SC3GDGYHFQUAUQ")
-             .config("spark.hadoop.fs.s3a.secret.key", "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")
+             .config("spark.hadoop.fs.s3a.access.key", "AKIA43SC3GDGUCJXHDWW")
+             .config("spark.hadoop.fs.s3a.secret.key", "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")
              .appName("ETL Automation FW").getOrCreate())
 
     # spark.sparkContext.setLogLevel("INFO")
@@ -58,6 +58,10 @@ def read_data(spark_session,read_config, request):
     target_config = config_data['target']
     validation_config = config_data['validations']
     if source_config['type'] == 'database':
+        if source_config['transformation'][1].lower() == 'python' and source_config['transformation'][0].lower() == 'y':
+            python_file_path = os.path.join(dir_path, 'transformation.py')
+            print("python file name", python_file_path)
+            subprocess.run(["python", python_file_path])
         source_df = read_db(config=source_config, spark = spark, dir_path=dir_path)
     else:
         source_df = read_file(config = source_config, spark = spark, dir_path=dir_path)

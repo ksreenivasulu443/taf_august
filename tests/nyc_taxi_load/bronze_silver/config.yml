@@ -1,27 +1,28 @@
 source:
   type: "database"
-  transformation : ["Y","sql"]
-  table: "employees"
-  cred_lookup: "postgres"
-  exclude_cols: ["batch_id"]
+  transformation : ["Y","python"]
+  table: "silver.yellow_tripdata_silver_expected"
+  cred_lookup: "red_shift_qa"
+  exclude_cols: ["na"]
 
 target:
   type: "database"
-  transformation : ["N","sql"]
-  table: "employees"
-  cred_lookup: "postgres"
-  exclude_cols: ["batch_id"]
+  transformation : ["n","na"]
+  table: "silver.yellow_tripdata_silver"
+  cred_lookup: "red_shift_qa"
+  exclude_cols: ["na"]
 
 validations:
   count_check:
-    key_columns: ["customer_id"]
+    key_columns: ["hash_key"]
   duplicate_check:
-    key_columns: ["customer_id"]
+    key_columns: ["vendorid","tpep_pickup_datetime","tpep_dropoff_datetime"]
   null_check:
-    null_columns: ["customer_id","name", "email", "phone"]
+    null_columns: ["fare_amount","tip_amount"]
+    num_records : 5
   uniqueness_check:
-    unique_columns: ["customer_id"]
+    unique_columns: ["tpep_pickup_datetime","tpep_dropoff_datetime"]
   data_compare_check:
-    key_column: ["customer_id"]
+    key_column: ["hash_key"]
     validate_columns: ["na"]
     num_records: 100

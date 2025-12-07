@@ -4,8 +4,7 @@ import sys
 def main():
     # Customize the arguments for pytest run
     pytest_args = [
-        "tests/table1",
-        "tests/table2",
+        "tests/nyc_taxi_load/s3_bronze_layer",
         "-v",
         "-s",
         "-m", "regression",

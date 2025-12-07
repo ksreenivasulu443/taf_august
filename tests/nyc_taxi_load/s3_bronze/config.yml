@@ -1,7 +1,7 @@
 source:
-  path: "s3a://nyc-august-batch-raw/yellow-taxi/full/"
+  path: "s3a://nyc-august-batch-raw/yellow-taxi/full"
   type: "parquet"
-  schema: "N"
+  schema: "Y"
   options:
     header: 'NA'
     delimiter: 'NA'
@@ -12,10 +12,10 @@ source:
 
 target:
   type: "database"
-  transformation : ["n","sql"]
+  transformation : ["y","sql"]
   table: "bronze.yellow_tripdata_bronze"
   cred_lookup: "red_shift_qa"
-  exclude_cols: ["batch_id"]
+  exclude_cols: ['source_file_name', 'etl_insert_ts','hash_key','cbd_congestion_fee']
 
 validations:
   count_check:
@@ -23,10 +23,11 @@ validations:
   duplicate_check:
     key_columns: ["vendorid","tpep_pickup_datetime","tpep_dropoff_datetime"]
   null_check:
-    null_columns: ["fare_amount"]
+    null_columns: ["fare_amount","tip_amount"]
+    num_records : 5
   uniqueness_check:
     unique_columns: ["tpep_pickup_datetime","tpep_dropoff_datetime"]
   data_compare_check:
-    key_column: ["customer_id"]
+    key_column: ["vendorid","tpep_pickup_datetime","tpep_dropoff_datetime"]
     validate_columns: ["na"]
     num_records: 100

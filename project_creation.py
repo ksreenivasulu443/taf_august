@@ -30,7 +30,7 @@ structure = {
         "table2": [
             "config.yml",
             "transformation.sql",
-            "test_nyc_trip_silver.py"
+            "test_customer_silver.py"
         ],
         ".": [
             "conftest.py"

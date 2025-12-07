@@ -24,7 +24,11 @@ def read_file(config, spark, dir_path):
         if options['flatten'] == 'Y':
             df = flatten(df)
     elif type == 'parquet':
-        df = spark.read.parquet(path)
+        if schema == 'Y':
+            schema_json = read_schema(dir_path)
+            df = spark.read.schema(schema_json).parquet(path)
+        else:
+            df = spark.read.parquet(path)
     elif type == 'avro':
         df = spark.read.format('avro').load(path=path)
     elif type == 'txt':
